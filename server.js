@@ -14,7 +14,11 @@ const PORT = process.env.PORT || 8080;
 //assigning the variable app to express
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://todo-translator-frontend-ki6dd2uvya-uc.a.run.app",
+  })
+);
 
 //middleware
 app.use(express.json());
