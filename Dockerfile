@@ -6,6 +6,8 @@ WORKDIR /src/app
 
 ENV PORT 8080
 
+ENV NODE_ENV production
+
 COPY package*.json ./
 
 # Copy the current directory contents into the container at /app
