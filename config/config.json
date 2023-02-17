@@ -14,10 +14,19 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "todo-translator-user",
-    "password": "Password@23",
+    "username": "postgres",
+    "password": "Password23",
+    "dialect": "postgres",
     "database": "todo-translator",
     "host": "35.223.206.79",
-    "dialect": "postgres"
+    "pool": {
+      "max": 5,
+      "min": 0,
+      "acquire": 30000,
+      "idle": 10000
+    },
+    "dialectOptions": {
+      "connectTimeout": 60000
+    }
   }
 }

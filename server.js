@@ -16,7 +16,11 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://todo-translator-frontend-ki6dd2uvya-uc.a.run.app",
+    origin: [
+      "https://todo-translator-frontend-ki6dd2uvya-uc.a.run.app",
+      "http://localhost:4200",
+    ],
+    optionsSuccessStatus: 200,
   })
 );
 
