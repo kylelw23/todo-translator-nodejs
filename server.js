@@ -9,7 +9,7 @@ const todoRoutes = require("./routes/todos");
 const cors = require("cors");
 
 //setting up your port
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 //assigning the variable app to express
 const app = express();
