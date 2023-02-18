@@ -50,7 +50,7 @@ on:
 
 env:
   var: 8080
-  PROJECT_ID: radiant-indexer-257723 
+  PROJECT_ID: radiant-indexer-257723
   GAR_LOCATION: US
   SERVICE: todo-translator-backend
   REGION: us-central1
@@ -67,7 +67,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        
+
       # NOTE: Alternative option - authentication via credentials json
       - name: Google Auth
         id: auth
@@ -83,7 +83,7 @@ jobs:
       # Authenticate Docker to Google Cloud Artifact Registry
       - name: Docker Auth
         run: |-
-         gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://us-central1-docker.pkg.dev/radiant-indexer-257723/cloud-run-source-deploy
+          gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://us-central1-docker.pkg.dev/radiant-indexer-257723/cloud-run-source-deploy
 
       - name: Build and Push Container
         run: |-
