@@ -18,7 +18,6 @@
     "password": "Password23",
     "dialect": "postgres",
     "database": "todo-translator",
-    "host": "35.223.206.79",
     "pool": {
       "max": 5,
       "min": 0,
@@ -26,6 +25,7 @@
       "idle": 10000
     },
     "dialectOptions": {
+      "socketPath": "/cloudsql/radiant-indexer-257723:us-central1:todo-translator-production.s.PGSQL.5432",
       "connectTimeout": 60000
     }
   }
