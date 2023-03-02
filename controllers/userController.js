@@ -36,6 +36,13 @@ const signin = async (req, res) => {
       res.cookie("jwt", token, { maxAge: 1 * 24 * 60 * 60, httpOnly: true });
       console.log("user", JSON.stringify(user, null, 2));
       console.log(token);
+
+      const userusage = {
+        userId: user.id,
+      };
+
+      await UserUsage.create(userusage);
+
       //send users details
       return res.status(201).send(user);
     } else {
@@ -82,7 +89,7 @@ const login = async (req, res) => {
         console.log("login endpoint:", token);
 
         // Track log in time
-        if (user.type === "user") {
+        if (user.type == "user") {
           const userusage = await UserUsage.findOne({
             where: { userId: user.id },
           });
@@ -113,6 +120,26 @@ const checkLogin = async (req, res) => {
       },
     });
     res.status(200).json({ user });
+  } catch (error) {
+    res.status(401).json({ message: "Authentication failed" });
+  }
+};
+
+const logout = async (req, res) => {
+  try {
+    const token = req.headers.authorization.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.secretKey);
+
+    // Track log out time
+    const userusage = await UserUsage.findOne({
+      where: { userId: decoded.id },
+    });
+
+    await userusage.update({
+      logoutTime: Date.now(),
+    });
+
+    res.status(200).json({ message: "Logout" });
   } catch (error) {
     res.status(401).json({ message: "Authentication failed" });
   }
@@ -158,6 +185,7 @@ const getUserUsage = async (req, res, next) => {
 module.exports = {
   signin,
   login,
+  logout,
   checkLogin,
   getAllUsers,
   getUserUsage,

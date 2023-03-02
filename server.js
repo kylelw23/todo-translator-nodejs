@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const db = require("./models");
 const userRoutes = require("./routes/auth");
 const todoRoutes = require("./routes/todos");
+const userUsageRoutes = require("./routes/userusage");
 const cors = require("cors");
 
 //setting up your port
@@ -37,6 +38,7 @@ db.sequelize.sync().then(() => {
 //routes for the user API
 app.use("/auth", userRoutes);
 app.use("/", todoRoutes);
+app.use("/", userUsageRoutes);
 
 //listening to server connection
 app.listen(PORT, () => console.log(`Server is connected on ${PORT}`));

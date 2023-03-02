@@ -2,6 +2,7 @@ const axios = require("axios");
 const db = require("../models");
 
 const Todo = db.todos;
+const UserUsage = db.userusage;
 
 exports.addItem = async (req, res) => {
   try {
@@ -19,14 +20,30 @@ exports.addItem = async (req, res) => {
         },
       }
     );
+
     const targetLanguague = response.data[0].detectedLanguage.text;
     const translation = response.data[0].translations[0].text;
+
     const todo = await Todo.create({
       task,
       translation,
       targetLanguague,
       userId,
     });
+
+    // Update User Usage
+    const count = await Todo.count({
+      where: {
+        userId: userId,
+      },
+    });
+
+    const userusage = await UserUsage.findOne({
+      where: { userId: userId },
+    });
+
+    userusage.update({ todoItemCount: count });
+
     res.status(200).json({ todo });
   } catch (error) {
     console.log(error);
@@ -42,7 +59,20 @@ exports.getTodos = async (req, res) => {
         userId,
       },
     });
-    console.log(todos);
+
+    // Update User Usage
+    const count = await Todo.count({
+      where: {
+        userId: userId,
+      },
+    });
+
+    const userusage = await UserUsage.findOne({
+      where: { userId: userId },
+    });
+
+    userusage.update({ todoItemCount: count });
+
     res.status(200).json({ todos });
   } catch (error) {
     res.status(500).json({ error });
@@ -76,6 +106,9 @@ exports.deleteItem = async (req, res) => {
     const { id } = req.params;
     const todo = await Todo.findByPk(id);
     await todo.destroy();
+
+    // todo item counts in UserUsage will be updated via getTodos endpoint
+
     res.status(200).json({ message: "Todo deleted successfully" });
   } catch (error) {
     res.status(500).json({ error });
