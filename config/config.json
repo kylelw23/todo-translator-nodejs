@@ -14,11 +14,17 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "postgres",
-    "password": "Password23",
+    "username": "kylelw23",
+    "password": "HZCgxk5dQBj4",
     "dialect": "postgres",
-    "database": "todo-translator",
-    "host": "35.223.206.79",
+    "database": "neondb",
+    "host": "ep-misty-term-823695.us-east-2.aws.neon.tech",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    },
     "pool": {
       "max": 5,
       "min": 0,
