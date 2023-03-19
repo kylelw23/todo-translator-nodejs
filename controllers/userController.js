@@ -7,9 +7,9 @@ const jwt = require("jsonwebtoken");
 const User = db.users;
 const UserUsage = db.userusage;
 
-//signing a user
+//signing a user up
 //hashing users password before its saved to the database with bcrypt
-const signin = async (req, res) => {
+const signup = async (req, res) => {
   try {
     const { username, email, password } = req.body;
     const data = {
@@ -183,7 +183,7 @@ const getUserUsage = async (req, res, next) => {
 };
 
 module.exports = {
-  signin,
+  signup,
   login,
   logout,
   checkLogin,

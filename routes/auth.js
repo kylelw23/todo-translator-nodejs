@@ -1,15 +1,15 @@
 //importing modules
 const express = require("express");
 const userController = require("../controllers/userController");
-const { signin, login, logout, checkLogin, getAllUsers, getUserUsage } =
+const { signup, login, logout, checkLogin, getAllUsers, getUserUsage } =
   userController;
 const userAuth = require("../Middlewares/userAuth");
 
 const router = express.Router();
 
-//signin endpoint
-//passing the middleware function to the signin
-router.post("/signin", userAuth.saveUser, signin);
+//signup endpoint
+//passing the middleware function to the signup
+router.post("/signup", userAuth.saveUser, signup);
 
 //login route
 router.post("/login", login);
